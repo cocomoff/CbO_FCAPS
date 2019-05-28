@@ -3,6 +3,8 @@
 from src.cbo import *
 from src.cbop import IntervalPatternStructure, ClosedByOnePattern
 from src.data_structure import Interval, Intervals
+from math import sqrt
+from itertools import product
 
 def example_fca():
     o_all = [1, 2, 3, 4, 5]
@@ -39,6 +41,31 @@ def example_ps():
 
     print()
     print("in total: {}".format(len(set_of_concepts)))
+
+    # compute L1
+    for pc in set_of_concepts:
+        A = pc.intent
+        if A != set({1, 2}) and A != set({0, 1, 2}) and A != set({3, 4}):
+            continue
+        diff = 0
+        for i, j in product(A, A):
+            if i == j:
+                continue
+
+            gid = ps.square_(i)
+            gjd = ps.square_(j)
+            diffIJ = 0
+            for k in range(gid.dim):
+                diffIJ += (gid.intervals[k].left - gjd.intervals[k].left) ** 2
+            diffIJ = sqrt(diffIJ)
+            diff += diffIJ
+            print("  ", i, j, diffIJ)
+            print("      ", i, gid)
+            print("      ", j, gjd)
+            for k in range(gid.dim):
+                print("      ", k, gid.intervals[k], gjd.intervals[k])
+        diff /= (len(A) * len(A))
+        print(A, diff, pc.extent)
 
 if __name__ == '__main__':
     example_ps()
