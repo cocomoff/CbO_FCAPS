@@ -7,9 +7,12 @@ from math import sqrt
 from itertools import product
 
 def example_fca():
-    o_all = [1, 2, 3, 4, 5]
+    # o_all = [1, 2, 3, 4, 5]
+    # a_all = [1, 2, 3, 4]
+    # rel = [(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2), (4, 1), (4, 2), (4, 4), (5, 4)]
+    o_all = [1, 2, 3, 4]
     a_all = [1, 2, 3, 4]
-    rel = [(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2), (4, 1), (4, 2), (4, 4), (5, 4)]
+    rel = [(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 2), (3, 3), (4, 3), (4, 1), (4, 4)]
     ct = Context(rel, o_all, a_all)
     alg = ClosedByOne(ct)
     set_of_concepts = alg.close_by_one()
@@ -68,4 +71,5 @@ def example_ps():
         print(A, diff, pc.extent)
 
 if __name__ == '__main__':
-    example_ps()
+    # example_ps()
+    example_fca()
